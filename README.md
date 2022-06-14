@@ -17,6 +17,7 @@ A simple calendar application that allows a user to save events for each hour of
 
 4. be able to click into the timeblock to enter an event name for that hour and a save button on each of the blocks that saves the event in local storage.
     - give each time block its own <input?> for each timeblock that when saved - it then displays the value in the box.
+    - create a for loop that checks the box before it -> then saves that value and its retrieved and saved into that place in its array home.
 
 # Screenshots:
 
@@ -37,3 +38,5 @@ Used moment.js to add in the current date in the <header>
 
 Commit 3:
 Started to try and figure out the time blocks color - but decided to move onto the saving calendar events. I created click handler on the save buttons so they save and continue to display the value once typed - even when the page is refreshed. Only working on the 9am hour atm.
+
+Commit 4:
