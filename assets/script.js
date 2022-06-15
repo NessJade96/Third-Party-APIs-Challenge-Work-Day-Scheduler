@@ -1,56 +1,40 @@
 var taskPerHour = Array(17 - 9 + 1).fill("");
-var eventInput = $(".calendarEvent");
-var firstDiv = $("div input[0]").value;
 var saveButton = $("button");
 var dayToday = moment().format("dddd, MMMM Do");
+var firstHour = $("firstHour");
+var storedHourInput = JSON.parse(localStorage.getItem("taskPerHour"));
+var containerTimeBlocks = $("#container");
+
 $("#currentDay").text(dayToday);
 
 // use a function with moment.js in it to determin with if / else statements on what colour the time blocks / divs should be.
 var allChildren = $("#container input");
-hourColor();
 
 function hourColor() {
-	var currentHour = moment().format("hh");
+	var currentHour = moment().format("HH");
 	console.log(currentHour);
 	if (currentHour < 11) {
 		console.log("heyy");
 		// allChildren.addClass("past");
 	}
 }
+hourColor();
 
-function renderCalendarEvent() {
-	// firstDiv = localStorage.getItem("eventInput");
-	// console.log(firstDiv);
-	// eventInput.val(firstDiv).value;
-
-	var containerTimeBlocks = $("#container");
-
-	for (let i = 0; i < taskPerHour.length; i++) {
-		containerTimeBlocks
-			.children()
-			.children("input")
-			.eq(i)
-			.val(taskPerHour[i]);
-	}
-
-	var test = localStorage.getItem(taskPerHour);
-	console.log(taskPerHour);
-	console.log(taskPerHour[0]);
-	console.log(test);
+//this loops through each input of the html elements and places in the locally stored values.
+for (var i = 0; i < storedHourInput.length; i++) {
+	containerTimeBlocks
+		.children()
+		.children("input")
+		.eq(i)
+		.val(storedHourInput[i]);
 }
 
+//when this button is clicked it saves to local storage by selecting the previous sibling.
 saveButton.on("click", function (event) {
-	var x = event.currentTarget;
-	var currentTarget = $(x);
-	var currentTargetPrev = currentTarget.prev();
-	localStorage.setItem("taskPerHour", currentTargetPrev[0].value);
-	console.log(currentTargetPrev[0].value);
-	taskPerHour = currentTargetPrev.value;
-	// localStorage.setItem("eventInput", currentTargetPrev[0].value);
-
-	renderCalendarEvent();
-
-	currentTarget.prev().val(firstDiv);
+	var currentTarget = $(event.currentTarget);
+	var calendarHourInput = currentTarget.prev();
+	var buttonIndex = currentTarget.data("buttonindex");
+	taskPerHour[buttonIndex] = calendarHourInput.val();
+	//saves to local storage ->
+	localStorage.setItem("taskPerHour", JSON.stringify(taskPerHour));
 });
-
-renderCalendarEvent();
