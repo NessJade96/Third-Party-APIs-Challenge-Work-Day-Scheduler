@@ -22,6 +22,7 @@ A simple calendar application that allows a user to save events for each hour of
 # Screenshots:
 
 ![Screenshot1](./assets/images/HTMLdone.jpg)
+![Screenshot2](./assets/images/finishedProject.PNG)
 
 # Links:
 
@@ -44,3 +45,6 @@ Wanting to save this code as I am going to try something different.
 
 Commit 5:
 Played around with different ways to set and get the local storage array information. I ended up creating a saveButton that on a click event triggers the previous sibling (the input value) to be saved into an array at the buttons index number. I get the data attribute of each button to equal an index number. Then in a for loop it retreives the array values and displays into the html inputs using dom traveral selectors. Next I will work of the hour colours.
+
+Commit 6:
+Used an if / else for loop on what colour the time blocks / divs should be. Did final checks to make sure it fits the criteria, added some screenshots, and uploaded.

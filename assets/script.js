@@ -1,24 +1,30 @@
-var taskPerHour = Array(17 - 9 + 1).fill("");
 var saveButton = $("button");
 var dayToday = moment().format("dddd, MMMM Do");
-var firstHour = $("firstHour");
 var storedHourInput = JSON.parse(localStorage.getItem("taskPerHour"));
 var containerTimeBlocks = $("#container");
+var hourRows = $(".hour");
 
+//lists the current day and date in the Jumbotron.
 $("#currentDay").text(dayToday);
 
-// use a function with moment.js in it to determin with if / else statements on what colour the time blocks / divs should be.
-var allChildren = $("#container input");
+var currentHour = moment().format("HH");
 
-function hourColor() {
-	var currentHour = moment().format("HH");
-	console.log(currentHour);
-	if (currentHour < 11) {
-		console.log("heyy");
-		// allChildren.addClass("past");
+//this checks the current hour and apples the relevent CSS class to that time block.
+for (var i = 0; i < hourRows.length; i++) {
+	var hourRow = $(hourRows[i]);
+	var hourRowData = hourRow.data("hour");
+	if (currentHour > hourRowData) {
+		hourRow.next().addClass("past");
+	} else if (currentHour < hourRowData) {
+		hourRow.next().addClass("future");
+	} else {
+		hourRow.next().addClass("present");
 	}
 }
-hourColor();
+
+if (storedHourInput === null) {
+	storedHourInput = Array(9).fill("");
+}
 
 //this loops through each input of the html elements and places in the locally stored values.
 for (var i = 0; i < storedHourInput.length; i++) {
@@ -34,7 +40,7 @@ saveButton.on("click", function (event) {
 	var currentTarget = $(event.currentTarget);
 	var calendarHourInput = currentTarget.prev();
 	var buttonIndex = currentTarget.data("buttonindex");
-	taskPerHour[buttonIndex] = calendarHourInput.val();
+	storedHourInput[buttonIndex] = calendarHourInput.val();
 	//saves to local storage ->
-	localStorage.setItem("taskPerHour", JSON.stringify(taskPerHour));
+	localStorage.setItem("taskPerHour", JSON.stringify(storedHourInput));
 });
